@@ -1,0 +1,81 @@
+<meta charset="UTF-8">
+
+<input id="input-texto" type="text">
+<br>
+<button id="boton-encriptar">Encriptar</button>
+<br>
+<button id="boton-desencriptar">Desencriptar</button>
+<br>
+<div id="resultado"></div>
+<br>
+<br>
+
+Elaborado por Jair Ayala Ortega
+
+<script>
+    // Función para encriptar el texto
+function encriptarTexto(texto) {
+  texto = texto.toLowerCase(); // Convertir a minúsculas
+  let reemplazos = {
+    "e": "enter",
+    "i": "imes",
+    "a": "ai",
+    "o": "ober",
+    "u": "ufat"
+  };
+  for (let letra in reemplazos) {
+    texto = texto.replace(new RegExp(letra, "g"), reemplazos[letra]);
+  }
+  return texto;
+}
+
+// Función para desencriptar el texto
+function desencriptarTexto(texto) {
+  let reemplazos = {
+    "enter": "e",
+    "imes": "i",
+    "ai": "a",
+    "ober": "o",
+    "ufat": "u"
+  };
+  for (let letra in reemplazos) {
+    texto = texto.replace(new RegExp(letra, "g"), reemplazos[letra]);
+  }
+  return texto;
+}
+
+// Obtener elementos del HTML
+const inputTexto = document.getElementById("input-texto");
+const botonEncriptar = document.getElementById("boton-encriptar");
+const botonDesencriptar = document.getElementById("boton-desencriptar");
+const resultado = document.getElementById("resultado");
+
+// Función para mostrar el resultado en un cuadro de dialogo
+function mostrarResultado(texto) {
+  const cuadroDialogo = document.createElement("textarea");
+  cuadroDialogo.value = texto;
+  document.body.appendChild(cuadroDialogo);
+  cuadroDialogo.select();
+  document.execCommand("copy");
+  document.body.removeChild(cuadroDialogo);
+  alert("Texto copiado al portapapeles:\n" + texto);
+}
+
+// Función del botón de encriptar
+botonEncriptar.addEventListener("click", function() {
+  const texto = inputTexto.value;
+  const textoEncriptado = encriptarTexto(texto);
+  resultado.innerHTML = textoEncriptado;
+  mostrarResultado(textoEncriptado);
+});
+
+// Función del botón de desencriptar
+botonDesencriptar.addEventListener("click", function() {
+  const texto = inputTexto.value;
+  const textoDesencriptado = desencriptarTexto(texto);
+  resultado.innerHTML = textoDesencriptado;
+  mostrarResultado(textoDesencriptado);
+});
+
+
+</script> 
